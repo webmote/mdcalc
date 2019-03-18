@@ -1,0 +1,83 @@
+{
+    "title": "APACHE II Score",
+    "when_to_use": "",
+    "pearls": "",
+    "why_use": "",
+    "topics:": [
+        {
+            "key": "age",
+            "name": "Age",
+            "unit": "years",
+            "type": "range",
+            "scores": [
+                {
+                    "value": {
+                        "lte": 44
+                    },
+                    "score": 0
+                },
+                {
+                    "value": {
+                        "gte": 45,
+                        "lte": 54
+                    },
+                    "score": 2
+                },
+                {
+                    "value": {
+                        "gte": 55,
+                        "lte": 64
+                    },
+                    "score": 3
+                },
+                {
+                    "value": {
+                        "gte": 65,
+                        "lte": 74
+                    },
+                    "score": 5
+                },
+                {
+                    "value": {
+                        "gt": 74
+                    },
+                    "score": 6
+                }
+            ]
+        },
+        {
+            "key": "hws",
+            "name": "History of severe organ insufficiency or immunocompromised",
+            "type": "boolean",
+            "scores": [
+                {
+                    "value": true,
+                    "name": "Yes",
+                    "subs": {
+                        "name": "Type of surgery",
+                        "type": "option",
+                        "scores": [
+                            {
+                                "value": "emergency",
+                                "score": 5
+                            },
+                            {
+                                "value": "nonoperative",
+                                "score": 5
+                            },
+                            {
+                                "value": "elective",
+                                "score": 2
+                            }
+                        ]
+                    }
+                },
+                {
+                    "value": false,
+                    "name": "No",
+                    "score": 2
+                }
+            ]
+        }
+    ]
+}

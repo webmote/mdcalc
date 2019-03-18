@@ -1,0 +1,51 @@
+{
+    "title": "A-a O2 gradient",
+    "key": "a-a-o2-gradient",
+    "when_to_use": "",
+    "pearls": "",
+    "why_use": "",
+    "evidence": "",
+    "next": "",
+    "creator": "",
+    "topics:": [
+        {
+            "key": "atmospheric_pressure",
+            "unit": [
+                "kpa",
+                "mmhg"
+            ]
+        },
+        {
+            "key": "pao2",
+            "unit": [
+                "kpa",
+                "mmhg"
+            ]
+        },
+        {
+            "key": "fio2",
+            "unit": "%"
+        },
+        {
+            "key": "paco2",
+            "unit": [
+                "kpa",
+                "mmhg"
+            ]
+        },
+        {
+            "key": "age",
+            "unit": "years"
+        }
+    ],
+    "score_formula": [
+        {
+            "key": "azo2",
+            "formula": "(fio2x(atmospheric_pressure-1)-(paco2/0.8))-pao2"
+        },
+        {
+            "key": "ageo2gradient",
+            "formula": "(age/4)+4"
+        }
+    ]
+}

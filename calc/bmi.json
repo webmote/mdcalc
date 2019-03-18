@@ -1,0 +1,36 @@
+{
+    "title": "Body Mass Index (BMI) and Body Surface Area (BSA)",
+    "key": "bmi",
+    "when_to_use": "",
+    "pearls": "",
+    "why_use": "",
+    "evidence": "",
+    "next": "",
+    "creator": "",
+    "topics:": [
+        {
+            "key": "weight",
+            "unit": [
+                "kg",
+                "lbs"
+            ]
+        },
+        {
+            "key": "height",
+            "unit": [
+                "cm",
+                "in"
+            ]
+        }
+    ],
+    "score_formula": [
+        {
+            "key": "bmi",
+            "formula": "(weight,kg)/(height,m)^2"
+        },
+        {
+            "key": "bsa",
+            "formula": "((height,cm)*(weight,kg)/3600)^0.5"
+        }
+    ]
+}
