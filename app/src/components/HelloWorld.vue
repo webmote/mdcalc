@@ -18,6 +18,15 @@
         </div>
       </section>
     </div>
+    <div class="results">
+      <section>
+        <div>BMI</div>
+        <div>
+          <label>BMI:</label>
+          <span>21</span>
+        </div>
+      </section>
+    </div>
   </div>
 </template>
 

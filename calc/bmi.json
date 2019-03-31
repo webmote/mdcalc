@@ -7,9 +7,10 @@
     "evidence": "",
     "next": "",
     "creator": "",
-    "topics:": [
+    "options": [
         {
             "key": "weight",
+            "calc_unit": "kg",
             "unit": [
                 "kg",
                 "lbs"
@@ -17,20 +18,22 @@
         },
         {
             "key": "height",
+            "calc_unit": "m",
             "unit": [
                 "cm",
                 "in"
             ]
         }
     ],
-    "score_formula": [
+    "scores": [
         {
             "key": "bmi",
-            "formula": "(weight,kg)/(height,m)^2"
+            "unit": "kg/m^2",
+            "calc_script": "weight/height**2"
         },
         {
             "key": "bsa",
-            "formula": "((height,cm)*(weight,kg)/3600)^0.5"
+            "calc_script": "((height,cm)*(weight,kg)/3600)^0.5"
         }
     ]
 }
