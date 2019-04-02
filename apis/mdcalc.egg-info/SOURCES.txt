@@ -1,0 +1,8 @@
+README.md
+setup.cfg
+setup.py
+mdcalc.egg-info/PKG-INFO
+mdcalc.egg-info/SOURCES.txt
+mdcalc.egg-info/dependency_links.txt
+mdcalc.egg-info/requires.txt
+mdcalc.egg-info/top_level.txt

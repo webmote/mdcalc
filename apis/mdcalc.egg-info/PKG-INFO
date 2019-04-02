@@ -1,0 +1,19 @@
+Metadata-Version: 2.1
+Name: mdcalc
+Version: 0.0.1
+Summary: 医学公式
+Home-page: https://github.com/faeli/mdcalc
+Author: fengpengbin
+Author-email: fengpengbin@live.cn
+License: MIT
+Description: 
+        
+Platform: UNKNOWN
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Requires-Python: >=3.6.0
+Description-Content-Type: text/markdown
