@@ -33,8 +33,24 @@
 <script>
 export default {
   name: "HelloWorld",
-  props: {
-    msg: String
+  render: function () {
+    this.getSs('bmi_bsa')
+    return true;
+  },
+  methods: {
+    getSs: function(ss_key) {
+      var vm = this
+      vm.log(ss_key)
+      vm.$http
+        .get("http://localhost:8000/api/content/ss/"+ss_key)
+        .then(function(data) {
+          var newdata = JSON.parse(data.body);
+          vm.$set("ss", newdata);
+        })
+        .catch(function() {
+
+        });
+    }
   }
 };
 </script>
@@ -44,8 +60,8 @@ export default {
 .inputs section {
   display: block;
   clear: both;
-  margin-top: .1em;
-  margin-bottom: .1em;
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
   border-bottom: 1px solid #f0f0f0;
   border-top: 1px solid #f0f0f0;
 }
