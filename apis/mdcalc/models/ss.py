@@ -6,7 +6,8 @@ class SsModel(BaseModel):
         c = self.db.cursor()
         c.execute("SELECT * FROM v_ss")
         ret = list(c.fetchall())
-        return ret
+        c.close()
+        return del_none(ret)
 
     def info(self, ss_key):
         c = self.db.cursor()
@@ -18,12 +19,14 @@ class SsModel(BaseModel):
         self.set_scores(formulas)
         ret['items'] = self.compile_items(items)
         ret['formulas'] = del_none(formulas)
+        c.close()
         return ret
     def set_scores(self, items):
         for item in items:
             c = self.db.cursor()
             where = {'key':item['key'],'ss_key':item['ss_key']}
             scores = c.execute("SELECT value,score,type,result FROM ss_scores WHERE ss_key=:ss_key and key=:key", where).fetchall()
+            c.close()
             if len(scores)>0:
                 item['scores'] = del_none(scores)
         return items
