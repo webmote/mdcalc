@@ -4,6 +4,8 @@ export function getInfoSs (ssKey) {
   return request({
     url: '/content/ss/' + ssKey,
     method: 'GET'
+  }).then(function (res) {
+    return Promise.resolve(res)
   })
 }
 

@@ -22,7 +22,7 @@ VERSION = '0.0.1'
 
 # What packages are required for this module to be executed?
 REQUIRED = [
-    'sanic',
+    'sanic', 'sanic-cors',
 ]
 
 # What packages are optional?
