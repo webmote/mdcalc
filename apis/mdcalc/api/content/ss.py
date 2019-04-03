@@ -12,6 +12,10 @@ ss = Blueprint('content_ss', url_prefix='/ss')
 async def ss_list(request):
     return json(model.list())
 
+@ss.route('/unit', methods=['GET', 'OPTIONS'])
+async def ss_unit(request):
+    return json(model.unit_convert())
+
 @ss.route('/<ss_key>', methods=['GET', 'OPTIONS'])
 async def ss_info(request, ss_key):
     return json(model.info(ss_key))

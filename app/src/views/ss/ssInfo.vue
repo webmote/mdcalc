@@ -6,17 +6,20 @@
       <section v-show="!i.when||(i.when&&model[i.when]===i.when_eq)" v-for="i in ss.items" :key="i.key">
         <div class="row">
           <div class="label">
-            <label>{{i.name}}</label>
+            <label>{{i.name}}</label><span class="score" v-show="score[i.key]>0||score[i.key]<0">{{score[i.key]}}</span>
           </div>
           <div class="input">
-            <ss-input v-model="model[i.key]" :ss="i"></ss-input>
+            <ss-input v-model="model[i.key]" :convert="ss.unit_convert" :unit="unit[i.key]" :ss="i"></ss-input>
           </div>
         </div>
       </section>
     </div>
     <section v-for="(f, k) in result" :key="k">
       <div>
-        <label>{{f.name}}</label>
+        <div>
+        <label>{{f.name}}</label><strong :title="k" v-show="f.ret">{{f.ret}}</strong>
+        </div>
+        <p v-show="f.result">{{f.result}}</p>
       </div>
     </section>
   </div>
@@ -26,6 +29,7 @@
 import { getInfoSs } from '@/apis'
 import _ from 'lodash'
 import SsInput from '@/components/ssInput'
+import { unitConvert } from '@/utils/convert'
 export default {
   name: 'ss_info',
   components: {
@@ -35,6 +39,7 @@ export default {
     return {
       ss: {},
       model: {},
+      unit: {},
       score: {},
       result: {}
     }
@@ -74,14 +79,15 @@ export default {
         if (item.scores && val) {
           var ret = this.chooseScore(val, key, item.scores)
           // console.log(ret)
-          if (ret) {
+          if (ret && ret.score) {
             if (/^[0-9.]*$/.test(ret.score)) {
-              this.score[key] = ret.score | ret.value | val
+              this.score[key] = _.toNumber(ret.score || ret.value || val)
             } else {
               console.info(key, ret.score)
               this.score[key] = eval(ret.score.replace('this', val).replace('value', val))
             }
           } else {
+            // console.log(ret)
             this.score[key] = null
           }
         }
@@ -101,7 +107,7 @@ export default {
         return score
       }
       return _.find(scores, o => {
-        var value = o.value
+        var value = o.value.replace('–', '-')
         // range 范围
         // < ≤ -< | > ≥ >- | -
         const symbol = {
@@ -112,8 +118,11 @@ export default {
           eq: '=',
           range: '-'
         }
-        const rangeRegExp = /([0-9.]*)?(<|>|≤|≥)?(-)?(<|>|≤|≥)?([0-9.]*)/
+        const rangeRegExp = /(\d+\.?\d{0,3})?(<|>|≤|≥)?(-)?(<|>|≤|≥)?(\d+\.?\d{0,3})/
         var matchs = value.match(rangeRegExp)
+        if (!matchs) {
+          console.info(value, matchs)
+        }
         var range = {
           check: function () {
             var c = []
@@ -172,7 +181,7 @@ export default {
         var jsValue = o['js_value'] = range.check()
         jsValue = _.replace(jsValue, new RegExp('value', 'g'), val)
         // TODO other and model eq
-        console.log(jsValue)
+        console.log(range, jsValue)
         return eval(jsValue)
       })
     },
@@ -180,17 +189,32 @@ export default {
       _.each(this.ss.formulas, this.calcFormula)
     },
     calcFormula: function (formula) {
+      var vm = this
       const key = formula.key
       var jsFormula = formula.js_formulas
       _.each(this.model, function (val, key) {
+        // 转换计算单位
+        if (_.has(vm.unit, key)) {
+          var vUnit = vm.unit[key].unit
+          var cUnit = formula.calc_unit[key]
+          if (vUnit !== cUnit) {
+            val = unitConvert(vUnit + '-' + cUnit, val, vm.ss.unit_convert)
+          }
+        }
         jsFormula = _.replace(jsFormula, new RegExp(key, 'g'), val)
       })
+      console.info(key, jsFormula)
       var value = eval(jsFormula)
+      value = Math.floor(value * 100) / 100 // 保留两位小数点
       if (formula.scores) {
         var ret = this.chooseScore(value, key, formula.scores)
-        this.result[key] = _.assign({ret: value}, _.pick(formula, ['key', 'name', 'unit'], ret))
+        if (ret) {
+          this.result[key] = _.assign({ret: value}, _.pick(formula, ['key', 'name', 'unit']), ret)
+        } else {
+          this.result[key] = _.assign({ret: value}, _.pick(formula, ['key', 'name', 'unit']), ret)
+        }
       } else {
-        this.result[key] = _.assign({value: value}, _.pick(formula, ['key', 'name', 'unit']))
+        this.result[key] = _.assign({ret: value}, _.pick(formula, ['key', 'name', 'unit']))
       }
     },
     getSs: function (ssKey) {
@@ -198,10 +222,13 @@ export default {
         this.ss = res.data
         if (this.ss && this.ss.items) {
           var model = {}
+          var unit = {}
           this.ss.items.map(i => {
             model[i.key] = null
+            unit[i.key] = _.pick(i, ['unit', 'units'])
           })
           this.model = model
+          this.unit = unit
           var result = {}
           this.ss.formulas.map(i => {
             result[i.key] = _.pick(i, ['key', 'name', 'unit'])
@@ -243,7 +270,7 @@ export default {
   display: block;
 }
 .row .label {
-  min-width: 10em;
+  min-width: 16em;
   text-align: left;
   display: inline-block;
 }
@@ -251,9 +278,13 @@ export default {
   top: 0;
   float: right;
   text-align: right;
-  margin-left: 11em;
+  margin-left: 17em;
 }
 .row .input button {
   display: inline-block;
+}
+.label .score {
+  float: right;
+  color: brown;
 }
 </style>
