@@ -1,5 +1,5 @@
 --
--- File generated with SQLiteStudio v3.2.1 on 周三 4月 3 16:37:24 2019
+-- File generated with SQLiteStudio v3.2.1 on 周三 4月 3 20:43:59 2019
 --
 -- Text encoding used: System
 --
@@ -201,10 +201,10 @@ INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "expla
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('A-a_O2_gradient', 'ss_apacheii', 'gt499', '4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('A-a_O2_gradient', 'ss_apacheii', '200-349', '2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('A-a_O2_gradient', 'ss_apacheii', 'lt200', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('pao2', 'ss_apacheii', '<55', '4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('pao2', 'ss_apacheii', 'lt55', '4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('pao2', 'ss_apacheii', '55-60', '3', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('pao2', 'ss_apacheii', '61-70', '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('pao2', 'ss_apacheii', '>70', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('pao2', 'ss_apacheii', 'gt70', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('arterial_ph', 'ss_apacheii', '<7.15', '4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('arterial_ph', 'ss_apacheii', '7.15-<7.25', '3', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('arterial_ph', 'ss_apacheii', '7.25-<7.33', '2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
@@ -281,6 +281,7 @@ INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "expla
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('motor_response', 'glasgow_coma_scale', 'withdrawal_from_pain', '4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('motor_response', 'glasgow_coma_scale', 'localizes_pain', '5', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('motor_response', 'glasgow_coma_scale', 'obeys_commands', '6', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('fio2', 'ss_apacheii', 'gte50percentum|lt50percentum_or_non-intubated', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- Index: key
 CREATE INDEX "key" ON ss_formulas ("key", ss_key);

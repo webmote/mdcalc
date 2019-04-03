@@ -1,5 +1,5 @@
 --
--- File generated with SQLiteStudio v3.2.1 on 周二 4月 2 10:11:39 2019
+-- File generated with SQLiteStudio v3.2.1 on 周三 4月 3 20:44:15 2019
 --
 -- Text encoding used: System
 --
@@ -82,8 +82,8 @@ INSERT INTO ss ("key", remark, creator, create_date, updator, update_date) VALUE
 
 -- Table: ss_formulas
 CREATE TABLE ss_formulas ("key" VARCHAR (500) REFERENCES keys ("key") NOT NULL, ss_key VARCHAR (500) REFERENCES ss ("key") NOT NULL, js_formulas TEXT, remark TEXT, creator VARCHAR (50) DEFAULT sys, create_date DATETIME DEFAULT (datetime()), updator VARCHAR (50) DEFAULT sys, update_date DATETIME DEFAULT (datetime()));
-INSERT INTO ss_formulas ("key", ss_key, js_formulas, remark, creator, create_date, updator, update_date) VALUES ('bmi', 'bmi_bsa', 'width/Math.pow(height,2)', 'Body mass index, kg/m2 = weight, kg / (height, m)2', NULL, NULL, NULL, NULL);
-INSERT INTO ss_formulas ("key", ss_key, js_formulas, remark, creator, create_date, updator, update_date) VALUES ('bsa', 'bmi_bsa', 'Math.pow(width*height/3600,0.5)', 'Body surface area (the Mosteller formula), m2 = [ Height, cm x Weight, kg  / 3600 ]1/2', NULL, NULL, NULL, NULL);
+INSERT INTO ss_formulas ("key", ss_key, js_formulas, remark, creator, create_date, updator, update_date) VALUES ('bmi', 'bmi_bsa', 'weight/Math.pow(height,2)', 'Body mass index, kg/m2 = weight, kg / (height, m)2', NULL, NULL, NULL, NULL);
+INSERT INTO ss_formulas ("key", ss_key, js_formulas, remark, creator, create_date, updator, update_date) VALUES ('bsa', 'bmi_bsa', 'Math.pow(weight*height/3600,0.5)', 'Body surface area (the Mosteller formula), m2 = [ Height, cm x Weight, kg  / 3600 ]1/2', NULL, NULL, NULL, NULL);
 INSERT INTO ss_formulas ("key", ss_key, js_formulas, remark, creator, create_date, updator, update_date) VALUES ('ss_apacheii', 'ss_apacheii', '+', '所有分值相加', NULL, NULL, NULL, NULL);
 INSERT INTO ss_formulas ("key", ss_key, js_formulas, remark, creator, create_date, updator, update_date) VALUES ('glasgow_coma_scale', 'glasgow_coma_scale', 'eye_response+verbal_response+motor_response', '所有分值相加', NULL, NULL, NULL, NULL);
 INSERT INTO ss_formulas ("key", ss_key, js_formulas, remark, creator, create_date, updator, update_date) VALUES ('A-a_O2_gradient', 'A-a_O2_gradient', '""', NULL, NULL, NULL, NULL, NULL);
@@ -201,10 +201,10 @@ INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "expla
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('A-a_O2_gradient', 'ss_apacheii', 'gt499', '4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('A-a_O2_gradient', 'ss_apacheii', '200-349', '2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('A-a_O2_gradient', 'ss_apacheii', 'lt200', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('pao2', 'ss_apacheii', '<55', '4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('pao2', 'ss_apacheii', 'lt55', '4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('pao2', 'ss_apacheii', '55-60', '3', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('pao2', 'ss_apacheii', '61-70', '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('pao2', 'ss_apacheii', '>70', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('pao2', 'ss_apacheii', 'gt70', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('arterial_ph', 'ss_apacheii', '<7.15', '4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('arterial_ph', 'ss_apacheii', '7.15-<7.25', '3', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('arterial_ph', 'ss_apacheii', '7.25-<7.33', '2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
@@ -281,9 +281,25 @@ INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "expla
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('motor_response', 'glasgow_coma_scale', 'withdrawal_from_pain', '4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('motor_response', 'glasgow_coma_scale', 'localizes_pain', '5', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('motor_response', 'glasgow_coma_scale', 'obeys_commands', '6', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('fio2', 'ss_apacheii', 'gte50percentum|lt50percentum_or_non-intubated', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- Index: key
 CREATE INDEX "key" ON ss_formulas ("key", ss_key);
+
+-- View: v_formulas
+CREATE VIEW v_formulas AS select s.key,k.name,s.ss_key,s.js_formulas,k.norm,k.note,k."explain",k.unit,k.units,(case when s.remark then s.remark else k.remark end) as remark
+from ss_formulas s
+left join keys k on s.key=k.key;
+
+-- View: v_items
+CREATE VIEW v_items AS select s.key,k.name,s.p_key,s.ss_key,s."when",s.when_eq,k.type,k.norm,k.unit,k.units,k.note,k."explain",(case when s.remark then s.remark else k.remark end) as remark
+from ss_items s
+left join keys k on s.key=k.key;
+
+-- View: v_ss
+CREATE VIEW v_ss AS select s.key,k.name,k.norm,k.note,k."explain",(case when s.remark then s.remark else k.remark end) as remark
+from ss s 
+left join keys k on s.key=k.key;
 
 COMMIT TRANSACTION;
 PRAGMA foreign_keys = on;
