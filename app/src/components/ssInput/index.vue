@@ -1,7 +1,7 @@
 <template>
   <div class="ssInput">
     <div v-if="ss.options&&ss.options.length>0">
-      <button v-bind:value="o.key" v-bind:class="classOpiton" v-for="o in ss.options" v-bind:key="o.key" v-on="optionListeners">{{o.name}}</button>
+      <button v-bind:value="o.key" v-bind:class="{active: value == o.key}" v-for="o in ss.options" v-bind:key="o.key" v-on="optionListeners">{{o.name}}</button>
     </div>
     <div v-else>
       <input v-bind="$attrs" v-bind:value="value" type="text" v-on="inputListeners">
@@ -93,4 +93,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.active {
+  border-color: #2c3e50;
+  background-color: #2c3e50;
+  color: #fff;
+
+}
 </style>
