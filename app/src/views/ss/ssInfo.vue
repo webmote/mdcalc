@@ -15,18 +15,31 @@
       </section>
     </div>
     <div class="results">
-      <section v-for="(f, k) in result" :key="k">
-        <div>
+      <section v-bind:class="resultClassObject">
+        <div class="box" v-for="(f, k) in result" :key="k">
           <div>
-            <label>{{f.name}}</label><strong :title="k" v-show="f.ret">{{f.ret}}</strong>
-          </div>
-          <div v-if="f.result.attrs !== undefined && f.result.attrs.length > 0">
-            <div v-for="r in f.result" :key="r.type">
-              <label v-show="r.type_name">{{r.type_anme}}</label>
-              <strong v-show="r.score">{{r.socre}}</strong>
+            <div class="result">
+              <div>
+                <strong class="score_num" :title="k" v-show="f.ret">{{f.ret}}</strong><label class="score_label" v-show="f.ret">{{f.name}}</label>
+              </div>
+              <div>
+                <span v-show="f.ret">{{f.result || f.note}}</span>
+              </div>
+              <div v-show="!f.ret">
+                <strong class="score_num">Results:</strong>
+              </div>
+              <div v-show="!f.ret">
+                <label>&nbsp;</label>
+              </div>
             </div>
+            <div class="type" v-if="f.result && f.result.length !== undefined && f.result.length > 0">
+              <div v-for="r in f.result" :key="r.type">
+                <label>{{r.type_name}}</label>
+                <strong>{{r.score}}</strong>
+              </div>
+            </div>
+            <div v-else><span v-show="f.result">{{f.result}}</span></div>
           </div>
-          <div v-else><span v-show="f.result">{{f.result}}</span></div>
         </div>
       </section>
     </div>
@@ -38,7 +51,7 @@ import { getInfoSs } from '@/apis'
 import _ from 'lodash'
 import SsInput from '@/components/ssInput'
 import { unitConvert } from '@/utils/convert'
-import { NUMBER_REG } from '@/utils/regexp'
+import { NUMBER_REG, CALC_REG } from '@/utils/regexp'
 export default {
   name: 'ss_info',
   components: {
@@ -56,11 +69,20 @@ export default {
   watch: {
     model: {
       handler: function (val, oldVal) {
+        // TODO change key $emit 延后执行
         if (!_.isEmpty(val)) {
           this.emitScore()
         }
       },
       deep: true
+    }
+  },
+  computed: {
+    resultClassObject: function () {
+      var obj = {}
+      var keys = _.keys(this.result)
+      obj['col-' + keys.length + '-row'] = true
+      return obj
     }
   },
   mounted: function () {
@@ -77,6 +99,7 @@ export default {
     calcScore: function (val, key) {
       var item = _.find(this.ss.items, {key: key})
       var score = 0
+      var del = false
       if (item) {
         // when_eq
         if (item.when && item.when_eq) {
@@ -95,17 +118,27 @@ export default {
             } else {
               // TODO eval
               console.debug(key, ret.score)
-              score = eval(ret.score.replace('this', val).replace('value', val))
+              if (CALC_REG.test(ret.score)) {
+                score = eval(ret.score.replace('this', val).replace('value', val))
+              } else {
+                score = parseInt(ret.score)
+              }
             }
           }
+        } else {
+          del = true
         }
       }
       this.score[key] = score
+      if (del) {
+        delete this.score[key]
+      }
     },
     chooseScore: function (val, key, scores) {
       const vm = this
-      var jsCheck
+      var scoreCheck = []
       var score = _.filter(scores, o => {
+        var jsCheck
         if (NUMBER_REG.test('' + val) === false) {
           // console.log('not number', key, val, NUMBER_REG.test('' + val))
           var check = []
@@ -123,20 +156,29 @@ export default {
             console.warn(key, 'no js_check')
           }
         }
+        // console.debug(key, jsCheck)
         jsCheck = _.replace(jsCheck, new RegExp('value', 'g'), val)
         _.each(vm.model, (value, key) => {
-          jsCheck = _.replace(jsCheck, new RegExp(key, 'g'), value)
+          if (!NUMBER_REG.test(value)) {
+            jsCheck = _.replace(jsCheck, new RegExp('\'' + key + '\'', 'g'), '\'' + value + '\'')
+          } else {
+            jsCheck = _.replace(jsCheck, new RegExp(key, 'g'), value)
+          }
         })
         // console.debug(key, jsCheck)
-        return eval(jsCheck)
+        var bool = eval(jsCheck)
+        if (bool) {
+          scoreCheck.push(jsCheck)
+        }
+        return bool
       })
       if (score) {
         if (score.length === 1) {
           score = score[0]
         }
-        console.debug('check:', key, jsCheck, score)
+        console.debug('check:', key, scoreCheck, score)
       } else {
-        console.warn('check:', key, jsCheck)
+        console.warn('check:', key, scoreCheck)
       }
       return score
     },
@@ -176,15 +218,16 @@ export default {
       if (formula.scores) {
         ret = this.chooseScore(value, key, formula.scores)
       }
-      if (_.isArray(ret)) {
-        this.result[key] = _.assign({ret: value}, _.pick(formula, ['key', 'name', 'unit']))
+      var baseResult = _.pick(formula, ['key', 'name', 'unit', 'note'])
+      if (_.isArray(ret) && ret.length > 0) {
+        this.result[key] = _.assign({ret: value}, baseResult)
         var rs = []
         _.each(ret, r => {
           rs.push(_.pick(r, ['type', 'type_name', 'score', 'result']))
         })
         this.result[key]['result'] = rs
       } else {
-        this.result[key] = _.assign({ret: value}, _.pick(formula, ['key', 'name', 'unit']), ret)
+        this.result[key] = _.assign({ret: value}, baseResult, ret)
       }
     },
     getSs: function (ssKey) {
@@ -201,7 +244,7 @@ export default {
           this.unit = unit
           var result = {}
           this.ss.formulas.map(i => {
-            result[i.key] = _.pick(i, ['key', 'name', 'unit'])
+            result[i.key] = _.pick(i, ['key', 'name', 'unit', 'note'])
           })
           this.result = result
         }
@@ -256,5 +299,41 @@ export default {
 .label .score {
   float: right;
   color: brown;
+}
+.results section {
+  position: relative;
+}
+.results .box {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  min-width: 10em;
+  background-color: #2c3e50;
+  color: #fff;
+  height: 6em;
+}
+.results .box > div {
+  padding: 1em;
+}
+.col-1-row .box {
+  width: 100%;
+}
+.col-2-row .box {
+  width: 50%;
+}
+.col-3-row .box {
+  width: 33.33%;
+}
+.col-4-row .box {
+  width: 25%;
+}
+.score_num {
+  font-size: 2em;
+  font-weight: bold;
+}
+.score_label {
+  margin-left: .5em;
+  font-size: .8em;
+  color: #ccc;
 }
 </style>
