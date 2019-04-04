@@ -70,17 +70,19 @@ export default {
       return Object.assign({}, this.$listeners, {
         click: function (event) {
           var unit = event.target.value
-          var unitSize = vm.unit.units.length
-          var index = _.indexOf(vm.unit.units, unit)
-          var nextIndex = index + 1
-          if (nextIndex >= unitSize) {
-            nextIndex = 0
-          }
-          var nextUnit = vm.unit.units[nextIndex]
-          var newValue = unitConvert(unit + '-' + nextUnit, vm.value, vm.convert)
-          if (newValue !== undefined) {
-            vm.unit['unit'] = nextUnit
-            vm.$emit('input', '' + newValue)
+          if (vm.unit.units && vm.unit.units.length > 1) {
+            var unitSize = vm.unit.units.length
+            var index = _.indexOf(vm.unit.units, unit)
+            var nextIndex = index + 1
+            if (nextIndex >= unitSize) {
+              nextIndex = 0
+            }
+            var nextUnit = vm.unit.units[nextIndex]
+            var newValue = unitConvert(unit + '-' + nextUnit, vm.value, vm.convert)
+            if (newValue !== undefined) {
+              vm.unit['unit'] = nextUnit
+              vm.$emit('input', '' + newValue)
+            }
           }
         }
       })

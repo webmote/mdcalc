@@ -1,5 +1,5 @@
 --
--- File generated with SQLiteStudio v3.2.1 on 周三 4月 3 20:43:59 2019
+-- File generated with SQLiteStudio v3.2.1 on 周四 4月 4 10:13:59 2019
 --
 -- Text encoding used: System
 --
@@ -9,7 +9,7 @@ BEGIN TRANSACTION;
 -- Table: keys
 CREATE TABLE keys ("key" VARCHAR (500) PRIMARY KEY UNIQUE NOT NULL, name VARCHAR (500) NOT NULL, type VARCHAR (50) NOT NULL, norm VARCHAR (100), unit VARCHAR (20), units VARCHAR (100), note VARCHAR (500), "explain" TEXT, remark TEXT, creator VARCHAR (50) DEFAULT sys, create_date DATETIME DEFAULT (datetime()), updator VARCHAR (50) DEFAULT sys, update_date DATETIME DEFAULT (datetime()));
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('bmi_bsa', 'Body Mass Index (BMI) and Body Surface Area (BSA)', 'ss', NULL, 'points', NULL, NULL, '身高体重比', NULL, 'sys', NULL, 'sys', NULL);
-INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('height', '身高', 'item', NULL, 'cm', NULL, NULL, '身高', NULL, 'sys', NULL, 'sys', NULL);
+INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('height', '身高', 'item', NULL, 'cm', 'cm,m', NULL, '身高', NULL, 'sys', NULL, 'sys', NULL);
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('weight', '体重', 'item', NULL, 'kg', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('bmi', 'bmi', 'item', NULL, 'kg/m^2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('bsa', 'BSA', 'item', NULL, 'm^2', NULL, NULL, NULL, 'Body SurFace Area', NULL, NULL, NULL, NULL);
@@ -19,7 +19,7 @@ INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark,
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('no', 'No', 'option', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('yes', 'Yes', 'option', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('type_of_surgery', '手术方式', 'item', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('emergency_postoperative ', '急诊手术', 'option', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('emergency_postoperative', '急诊手术', 'option', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('elective_postoperative ', '择期手术', 'option', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('nonperative', '非手术', 'option', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('temperature', '体温', 'item', NULL, '°C', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL);
@@ -40,7 +40,7 @@ INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark,
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('61-70', '61-70', 'option', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('55-60', '55-60', 'option', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('lt55', '<55', 'option', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('A-a_O2_gradient', '氧合评分', 'ss', '3 - 15', 'points', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('a-a_o2_gradient', '氧合评分', 'ss', '3 - 15', 'points', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('glasgow_coma_scale', '格拉斯哥昏迷量表', 'ss', NULL, 'points', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('350-499', '350-499', 'option', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('200-349', '200-349', 'option', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
@@ -72,25 +72,30 @@ INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark,
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('atmospheric_pressure', '大气压强', 'item', NULL, 'mm Hg', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('paco2', 'PaCO?', 'item', NULL, 'mm Hg', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('expected_a_a_gradient_for_age', 'Expected A-a Gradient for Age', 'item', NULL, 'mm Hg', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('cm', '厘米', 'unit', '1cm=10mm,10cm=1dm,100cm=1m', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('m', '米', 'unit', '1m=10dm,1m=100cm,1m=1000mm', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('kg', '千克', 'unit', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('dm', '分米', 'unit', '1dm=10cm,1dm=100mm,10dm=1m', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('mm', '毫米', 'unit', '1000mm=1m,100mm=1dm,10mm=1cm', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- Table: ss
-CREATE TABLE ss ("key" VARCHAR (500) PRIMARY KEY UNIQUE NOT NULL REFERENCES keys ("key"), remark TEXT, creator VARCHAR (50) DEFAULT sys, create_date DATETIME DEFAULT (datetime()), updator VARCHAR (50) DEFAULT sys, update_date DATETIME DEFAULT (datetime()));
+CREATE TABLE ss ("key" VARCHAR (500) PRIMARY KEY UNIQUE NOT NULL REFERENCES keys ("key") ON UPDATE CASCADE, remark TEXT, creator VARCHAR (50) DEFAULT sys, create_date DATETIME DEFAULT (datetime()), updator VARCHAR (50) DEFAULT sys, update_date DATETIME DEFAULT (datetime()));
 INSERT INTO ss ("key", remark, creator, create_date, updator, update_date) VALUES ('bmi_bsa', NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss ("key", remark, creator, create_date, updator, update_date) VALUES ('ss_apacheii', 'APACHE II Score', NULL, NULL, NULL, NULL);
 INSERT INTO ss ("key", remark, creator, create_date, updator, update_date) VALUES ('glasgow_coma_scale', 'Glasgow Coma Scale/Score', NULL, NULL, NULL, NULL);
-INSERT INTO ss ("key", remark, creator, create_date, updator, update_date) VALUES ('A-a_O2_gradient', 'A-a O? Gradient', NULL, NULL, NULL, NULL);
+INSERT INTO ss ("key", remark, creator, create_date, updator, update_date) VALUES ('a-a_o2_gradient', 'A-a O? Gradient', NULL, NULL, NULL, NULL);
 
 -- Table: ss_formulas
-CREATE TABLE ss_formulas ("key" VARCHAR (500) REFERENCES keys ("key") NOT NULL, ss_key VARCHAR (500) REFERENCES ss ("key") NOT NULL, js_formulas TEXT, remark TEXT, creator VARCHAR (50) DEFAULT sys, create_date DATETIME DEFAULT (datetime()), updator VARCHAR (50) DEFAULT sys, update_date DATETIME DEFAULT (datetime()));
-INSERT INTO ss_formulas ("key", ss_key, js_formulas, remark, creator, create_date, updator, update_date) VALUES ('bmi', 'bmi_bsa', 'weight/Math.pow(height,2)', 'Body mass index, kg/m2 = weight, kg / (height, m)2', NULL, NULL, NULL, NULL);
-INSERT INTO ss_formulas ("key", ss_key, js_formulas, remark, creator, create_date, updator, update_date) VALUES ('bsa', 'bmi_bsa', 'Math.pow(weight*height/3600,0.5)', 'Body surface area (the Mosteller formula), m2 = [ Height, cm x Weight, kg  / 3600 ]1/2', NULL, NULL, NULL, NULL);
-INSERT INTO ss_formulas ("key", ss_key, js_formulas, remark, creator, create_date, updator, update_date) VALUES ('ss_apacheii', 'ss_apacheii', '+', '所有分值相加', NULL, NULL, NULL, NULL);
-INSERT INTO ss_formulas ("key", ss_key, js_formulas, remark, creator, create_date, updator, update_date) VALUES ('glasgow_coma_scale', 'glasgow_coma_scale', 'eye_response+verbal_response+motor_response', '所有分值相加', NULL, NULL, NULL, NULL);
-INSERT INTO ss_formulas ("key", ss_key, js_formulas, remark, creator, create_date, updator, update_date) VALUES ('A-a_O2_gradient', 'A-a_O2_gradient', '""', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO ss_formulas ("key", ss_key, js_formulas, remark, creator, create_date, updator, update_date) VALUES ('expected_a_a_gradient_for_age', 'A-a_O2_gradient', '(age/4)+4', NULL, NULL, NULL, NULL, NULL);
+CREATE TABLE ss_formulas ("key" VARCHAR (500) REFERENCES keys ("key") ON UPDATE CASCADE NOT NULL, ss_key VARCHAR (500) REFERENCES ss ("key") ON UPDATE CASCADE NOT NULL, js_formulas TEXT, calc_unit VARCHAR, remark TEXT, creator VARCHAR (50) DEFAULT sys, create_date DATETIME DEFAULT (datetime()), updator VARCHAR (50) DEFAULT sys, update_date DATETIME DEFAULT (datetime()));
+INSERT INTO ss_formulas ("key", ss_key, js_formulas, calc_unit, remark, creator, create_date, updator, update_date) VALUES ('bmi', 'bmi_bsa', 'weight/Math.pow(height,2)', 'weight:kg,height:m', 'Body mass index, kg/m2 = weight, kg / (height, m)2', NULL, NULL, NULL, NULL);
+INSERT INTO ss_formulas ("key", ss_key, js_formulas, calc_unit, remark, creator, create_date, updator, update_date) VALUES ('bsa', 'bmi_bsa', 'Math.pow(weight*height/3600,0.5)', 'weight:kg,height:cm', 'Body surface area (the Mosteller formula), m2 = [ Height, cm x Weight, kg  / 3600 ]1/2', NULL, NULL, NULL, NULL);
+INSERT INTO ss_formulas ("key", ss_key, js_formulas, calc_unit, remark, creator, create_date, updator, update_date) VALUES ('ss_apacheii', 'ss_apacheii', '+', NULL, '所有分值相加', NULL, NULL, NULL, NULL);
+INSERT INTO ss_formulas ("key", ss_key, js_formulas, calc_unit, remark, creator, create_date, updator, update_date) VALUES ('glasgow_coma_scale', 'glasgow_coma_scale', 'eye_response+verbal_response+motor_response', NULL, '所有分值相加', NULL, NULL, NULL, NULL);
+INSERT INTO ss_formulas ("key", ss_key, js_formulas, calc_unit, remark, creator, create_date, updator, update_date) VALUES ('a-a_o2_gradient', 'a-a_o2_gradient', '""', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO ss_formulas ("key", ss_key, js_formulas, calc_unit, remark, creator, create_date, updator, update_date) VALUES ('expected_a_a_gradient_for_age', 'a-a_o2_gradient', '(age/4)+4', NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- Table: ss_items
-CREATE TABLE ss_items ("key" VARCHAR (500) REFERENCES keys ("key") NOT NULL, p_key VARCHAR (500) REFERENCES keys ("key"), ss_key VARCHAR (500) REFERENCES ss ("key") NOT NULL, "when" VARCHAR (500) REFERENCES keys ("key"), when_eq VARCHAR (500) REFERENCES keys ("key"), remark TEXT, creator VARCHAR (50) DEFAULT sys, create_date DATETIME DEFAULT (datetime()), update_date DATETIME DEFAULT (datetime()), updator VARCHAR (50) DEFAULT sys);
+CREATE TABLE ss_items ("key" VARCHAR (500) REFERENCES keys ("key") ON UPDATE CASCADE NOT NULL, p_key VARCHAR (500) REFERENCES keys ("key") ON UPDATE CASCADE, ss_key VARCHAR (500) REFERENCES ss ("key") ON UPDATE CASCADE NOT NULL, "when" VARCHAR (500) REFERENCES keys ("key") ON UPDATE CASCADE, when_eq VARCHAR (500) REFERENCES keys ("key") ON UPDATE CASCADE, remark TEXT, creator VARCHAR (50) DEFAULT sys, create_date DATETIME DEFAULT (datetime()), update_date DATETIME DEFAULT (datetime()), updator VARCHAR (50) DEFAULT sys);
 INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('weight', NULL, 'bmi_bsa', NULL, NULL, NULL, NULL, NULL, NULL, 'sys');
 INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('height', NULL, 'bmi_bsa', NULL, NULL, NULL, NULL, NULL, NULL, 'sys');
 INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('age', NULL, 'ss_apacheii', NULL, NULL, NULL, NULL, NULL, NULL, 'sys');
@@ -98,7 +103,7 @@ INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, cr
 INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('no', 'severe_organ_failure_or_immunocompromise', 'ss_apacheii', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('yes', 'severe_organ_failure_or_immunocompromise', 'ss_apacheii', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('severe_organ_failure_or_immunocompromise', NULL, 'ss_apacheii', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('emergency_postoperative ', 'type_of_surgery', 'ss_apacheii', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('emergency_postoperative', 'type_of_surgery', 'ss_apacheii', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('elective_postoperative ', 'type_of_surgery', 'ss_apacheii', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('nonperative', 'type_of_surgery', 'ss_apacheii', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('rectal_temperature', NULL, 'ss_apacheii', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
@@ -118,12 +123,12 @@ INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, cr
 INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('fio2', NULL, 'ss_apacheii', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('gte50percentum', 'fio2', 'ss_apacheii', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('lt50percentum_or_non-intubated', 'fio2', 'ss_apacheii', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('A-a_O2_gradient', NULL, 'ss_apacheii', 'fio2', 'gte50percentum', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('a-a_o2_gradient', NULL, 'ss_apacheii', 'fio2', 'gte50percentum', NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('pao2', NULL, 'ss_apacheii', 'fio2', 'lt50percentum_or_non-intubated', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('lt200', 'A-a_O2_gradient', 'ss_apacheii', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('200-349', 'A-a_O2_gradient', 'ss_apacheii', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('350-499', 'A-a_O2_gradient', 'ss_apacheii', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('gt499', 'A-a_O2_gradient', 'ss_apacheii', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('lt200', 'a-a_o2_gradient', 'ss_apacheii', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('200-349', 'a-a_o2_gradient', 'ss_apacheii', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('350-499', 'a-a_o2_gradient', 'ss_apacheii', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('gt499', 'a-a_o2_gradient', 'ss_apacheii', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('gt70', 'pao2', 'ss_apacheii', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('61-70', 'pao2', 'ss_apacheii', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('55-60', 'pao2', 'ss_apacheii', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
@@ -146,24 +151,24 @@ INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, cr
 INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('to_pain', 'eye_response', 'glasgow_coma_scale', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('to_verbal_command ', 'eye_response', 'glasgow_coma_scale', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('spontaneously', 'eye_response', 'glasgow_coma_scale', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('age', NULL, 'A-a_O2_gradient', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('fio2', NULL, 'A-a_O2_gradient', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('pao2', NULL, 'A-a_O2_gradient', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('atmospheric_pressure', NULL, 'A-a_O2_gradient', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('paco2', NULL, 'A-a_O2_gradient', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('age', NULL, 'a-a_o2_gradient', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('fio2', NULL, 'a-a_o2_gradient', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('pao2', NULL, 'a-a_o2_gradient', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('atmospheric_pressure', NULL, 'a-a_o2_gradient', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('paco2', NULL, 'a-a_o2_gradient', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- Table: ss_scores
-CREATE TABLE ss_scores ("key" VARCHAR (500) NOT NULL REFERENCES keys ("key"), ss_key VARCHAR (500) REFERENCES ss ("key"), value VARCHAR (500) NOT NULL, score VARCHAR (100), type VARCHAR (50), result VARCHAR (100), remark TEXT, "explain" TEXT, creator VARCHAR (50) DEFAULT sys, create_date DATETIME DEFAULT (datetime()), updator VARCHAR (50) DEFAULT sys, update_date DATETIME DEFAULT (datetime()));
+CREATE TABLE ss_scores ("key" VARCHAR (500) NOT NULL REFERENCES keys ("key") ON UPDATE CASCADE, ss_key VARCHAR (500) REFERENCES ss ("key") ON UPDATE CASCADE, value VARCHAR (500) NOT NULL, score VARCHAR (100), type VARCHAR (50), result VARCHAR (100), remark TEXT, "explain" TEXT, creator VARCHAR (50) DEFAULT sys, create_date DATETIME DEFAULT (datetime()), updator VARCHAR (50) DEFAULT sys, update_date DATETIME DEFAULT (datetime()));
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('age', 'ss_apacheii', '≤44', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('age', 'ss_apacheii', '45-54', '2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('age', 'ss_apacheii', '55-64', '3', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('age', 'ss_apacheii', '65-74', '5', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('age', 'ss_apacheii', '>74', '6', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('bmi', 'bmi_bsa', '18.5–24.9', NULL, NULL, '正常', '正常', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('bmi', 'bmi_bsa', '>18.5', NULL, NULL, '偏轻', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('bmi', 'bmi_bsa', '25.0–29.9', NULL, NULL, '偏胖', NULL, NULL, 'sys', '2019-04-01 03:32:27', 'sys', '2019-04-01 03:32:27');
-INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('bmi', 'bmi_bsa', '30.0–34.9', NULL, NULL, '肥胖-一级', NULL, NULL, 'sys', '2019-04-01 03:33:54', 'sys', '2019-04-01 03:33:54');
-INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('bmi', 'bmi_bsa', '35.0–39.9', NULL, NULL, '肥胖-二级', NULL, NULL, 'sys', '2019-04-01 03:34:21', 'sys', '2019-04-01 03:34:21');
+INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('bmi', 'bmi_bsa', '<18.5', NULL, NULL, '偏轻', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('bmi', 'bmi_bsa', '25.0-29.9', NULL, NULL, '偏胖', NULL, NULL, 'sys', '2019-04-01 03:32:27', 'sys', '2019-04-01 03:32:27');
+INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('bmi', 'bmi_bsa', '30.0-34.9', NULL, NULL, '肥胖-一级', NULL, NULL, 'sys', '2019-04-01 03:33:54', 'sys', '2019-04-01 03:33:54');
+INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('bmi', 'bmi_bsa', '35.0-39.9', NULL, NULL, '肥胖-二级', NULL, NULL, 'sys', '2019-04-01 03:34:21', 'sys', '2019-04-01 03:34:21');
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('bmi', 'bmi_bsa', '≥40.0', NULL, NULL, '肥胖-三级', NULL, NULL, 'sys', '2019-04-01 03:35:15', 'sys', '2019-04-01 03:35:15');
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('severe_organ_failure_or_immunocompromise', 'ss_apacheii', 'yes', '', NULL, NULL, '需要子项目', NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('severe_organ_failure_or_immunocompromise', 'ss_apacheii', 'no', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
@@ -197,10 +202,10 @@ INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "expla
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('respiratory_rate', 'ss_apacheii', '25-<35', '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('respiratory_rate', 'ss_apacheii', '35-<50', '3', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('respiratory_rate', 'ss_apacheii', '≥50', '4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('A-a_O2_gradient', 'ss_apacheii', '350-499', '3', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('A-a_O2_gradient', 'ss_apacheii', 'gt499', '4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('A-a_O2_gradient', 'ss_apacheii', '200-349', '2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('A-a_O2_gradient', 'ss_apacheii', 'lt200', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('a-a_o2_gradient', 'ss_apacheii', '350-499', '3', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('a-a_o2_gradient', 'ss_apacheii', 'gt499', '4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('a-a_o2_gradient', 'ss_apacheii', '200-349', '2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('a-a_o2_gradient', 'ss_apacheii', 'lt200', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('pao2', 'ss_apacheii', 'lt55', '4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('pao2', 'ss_apacheii', '55-60', '3', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('pao2', 'ss_apacheii', '61-70', '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
@@ -287,7 +292,7 @@ INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "expla
 CREATE INDEX "key" ON ss_formulas ("key", ss_key);
 
 -- View: v_formulas
-CREATE VIEW v_formulas AS select s.key,k.name,s.ss_key,s.js_formulas,k.norm,k.note,k."explain",k.unit,k.units,(case when s.remark then s.remark else k.remark end) as remark
+CREATE VIEW v_formulas AS select s.key,k.name,s.ss_key,s.js_formulas,s.calc_unit,k.norm,k.note,k."explain",k.unit,k.units,(case when s.remark then s.remark else k.remark end) as remark
 from ss_formulas s
 left join keys k on s.key=k.key;
 

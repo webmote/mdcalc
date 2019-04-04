@@ -34,6 +34,8 @@ class SsModel(BaseModel):
         where = (ss_key,)
         c.execute("SELECT * FROM v_ss WHERE key=? LIMIT 1", where)
         ret = del_none(c.fetchone())
+        if not ret:
+            return ret
         items = c.execute("SELECT * FROM v_items WHERE ss_key=?", where).fetchall()
         formulas = c.execute("SELECT * FROM v_formulas WHERE ss_key=?", where).fetchall()
         self.compile_calc_unit(formulas)
@@ -48,26 +50,49 @@ class SsModel(BaseModel):
         for item in items:
             c = self.db.cursor()
             where = {'key':item['key'],'ss_key':item['ss_key']}
-            scores = c.execute("SELECT value,score,type,result FROM ss_scores WHERE ss_key=:ss_key and key=:key", where).fetchall()
+            scores = c.execute("SELECT value,score,type,type_name,result FROM v_scores WHERE ss_key=:ss_key and key=:key", where).fetchall()
             c.close()
             self.compile_scores_value(scores)
             if len(scores)>0:
                 item['scores'] = del_none(scores)
         return items
     
-    def compile_range_value(self, value):
+    def js_check_value(self, value, score):
+        check = []
+        eq = self.js_eq_value(value)
+        reg = self.js_regexp_value(value)
+        rg = self.js_range_value(value)
+        if reg:
+            check.append("(%s)" % reg)
+            score['js_reg_check'] = reg
+        elif eq:
+            check.append("(%s)" % eq)
+            score['js_eq_check'] = eq
+        if rg:
+            check.append("(%s)" % rg)
+            score['js_range_check'] = rg
+        
+        return " || ".join(check)
+        
+    def js_regexp_value(self, value):
         if '|' in value or '*' in value:
-            return "(new RegExp('{val}')).test(value) ".format(val=value)
+            return "(new RegExp('{val}')).test('value') ".format(val=value)
+    
+    def js_eq_value(self, value):
         if '=' in value:
             r = re.search(r'(.*)=(.*)', value)
             if r:
                 k, v = r.groups()
-                return "{k} == '{v}'".format(k=k, v=v)
-        r = re.search(r'(\d+\.?\d{0,})?(<|>|≤|≥|gt|gte|lt|lte)?(-)?(<|>|≤|≥|gt|gte|lt|lte)?(\d+\.?\d{0,})', value)
+                return "'{k}' == '{v}'".format(k=k, v=v)
+        else:
+            return "'value' == '{val}'".format(val=value)
+
+    def js_range_value(self, value):
+        r = re.search(r'^(\d+\.?\d{0,})?(<|>|≤|≥|gt|gte|lt|lte)?(-)?(<|>|≤|≥|gt|gte|lt|lte)?(\d+\.?\d{0,})$', value)
         if r:
             num1, rl1, rg, rl2, num2 = r.groups()
             c = []
-            print(value, r.groups())
+            # print(value, r.groups())
             if num1 and num2:
                 c.append('value')
                 c.append('>' if rl1 else '>=')
@@ -89,23 +114,30 @@ class SsModel(BaseModel):
             rg = re.sub(r'gte|≥', '>=', rg)
             rg = re.sub(r'lt', '<', rg)
             rg = re.sub(r'lte|≤', '<=', rg)
-            return "value='{val}' || ({rg})".format(val=value, rg=rg)
-        else:
-            return "value=='{val}'".format(val=value)
+            return "{rg}".format(val=value, rg=rg)
     
     def compile_scores_value(self, scores):
         for score in scores:
             if 'value' in score and score['value']:
-                value = score['value'].replace('–', '-')
+                value = score['value']
+                value = value.replace('–', '-')
                 if ' and ' in value or '&&' in value:
                     ands = []
                     for v in re.split(r' and |&&', value):
-                        rg = self.compile_range_value(v)
+                        rg = self.js_check_value(v, score)
                         if rg:
                             ands.append("({rg})".format(rg=rg))
+                    if 'js_reg_check' in score:
+                        del score['js_reg_check']
+                    if 'js_range_check' in score:
+                        del score['js_range_check']
+                    if 'js_eq_check' in score:
+                        del score['js_eq_check']
+
+                    score['js_and'] = True
                     score['js_check'] = " && ".join(ands)
                 else:
-                    score['js_check'] = self.compile_range_value(value)
+                    score['js_check'] = self.js_check_value(value, score)
 
     def compile_calc_unit(self, items):
         for item in items:

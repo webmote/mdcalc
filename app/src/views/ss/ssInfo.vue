@@ -14,14 +14,22 @@
         </div>
       </section>
     </div>
-    <section v-for="(f, k) in result" :key="k">
-      <div>
+    <div class="results">
+      <section v-for="(f, k) in result" :key="k">
         <div>
-        <label>{{f.name}}</label><strong :title="k" v-show="f.ret">{{f.ret}}</strong>
+          <div>
+            <label>{{f.name}}</label><strong :title="k" v-show="f.ret">{{f.ret}}</strong>
+          </div>
+          <div v-if="f.result.attrs !== undefined && f.result.attrs.length > 0">
+            <div v-for="r in f.result" :key="r.type">
+              <label v-show="r.type_name">{{r.type_anme}}</label>
+              <strong v-show="r.score">{{r.socre}}</strong>
+            </div>
+          </div>
+          <div v-else><span v-show="f.result">{{f.result}}</span></div>
         </div>
-        <p v-show="f.result">{{f.result}}</p>
-      </div>
-    </section>
+      </section>
+    </div>
   </div>
 </template>
 
@@ -30,6 +38,7 @@ import { getInfoSs } from '@/apis'
 import _ from 'lodash'
 import SsInput from '@/components/ssInput'
 import { unitConvert } from '@/utils/convert'
+import { NUMBER_REG } from '@/utils/regexp'
 export default {
   name: 'ss_info',
   components: {
@@ -67,123 +76,69 @@ export default {
     },
     calcScore: function (val, key) {
       var item = _.find(this.ss.items, {key: key})
+      var score = 0
       if (item) {
+        // when_eq
         if (item.when && item.when_eq) {
           var isEq = (this.model[item.when] === item.when_eq)
           if (!isEq) {
-            this.score[key] = 0
             val = null
-            this.model[key] = val
+            delete this.model[key]
           }
         }
         if (item.scores && val) {
           var ret = this.chooseScore(val, key, item.scores)
           // console.log(ret)
           if (ret && ret.score) {
-            if (/^[0-9.]*$/.test(ret.score)) {
-              this.score[key] = _.toNumber(ret.score || ret.value || val)
+            if (NUMBER_REG.test(ret.score)) {
+              score = _.toNumber(ret.score || ret.value || val)
             } else {
-              console.info(key, ret.score)
-              this.score[key] = eval(ret.score.replace('this', val).replace('value', val))
+              // TODO eval
+              console.debug(key, ret.score)
+              score = eval(ret.score.replace('this', val).replace('value', val))
             }
-          } else {
-            // console.log(ret)
-            this.score[key] = null
           }
         }
       }
+      this.score[key] = score
     },
     chooseScore: function (val, key, scores) {
-      // 优先相等和正则匹配
-      var score = _.find(scores, o => {
-        var value = o.value
-        if (value === val) { // eq 相等
-          return true
-        } else if ((new RegExp(value)).test(val)) { // regexp 正则匹配
-          return true
+      const vm = this
+      var jsCheck
+      var score = _.filter(scores, o => {
+        if (NUMBER_REG.test('' + val) === false) {
+          // console.log('not number', key, val, NUMBER_REG.test('' + val))
+          var check = []
+          if (_.has(o, 'js_reg_check')) {
+            check.push('(' + o.js_reg_check + ')')
+          }
+          if (_.has(o, 'js_eq_check')) {
+            check.push('(' + o.js_eq_check + ')')
+          }
+          jsCheck = check.join(' || ')
+        } else {
+          if (_.has(o, 'js_check')) {
+            jsCheck = o.js_check
+          } else {
+            console.warn(key, 'no js_check')
+          }
         }
+        jsCheck = _.replace(jsCheck, new RegExp('value', 'g'), val)
+        _.each(vm.model, (value, key) => {
+          jsCheck = _.replace(jsCheck, new RegExp(key, 'g'), value)
+        })
+        // console.debug(key, jsCheck)
+        return eval(jsCheck)
       })
       if (score) {
-        return score
+        if (score.length === 1) {
+          score = score[0]
+        }
+        console.debug('check:', key, jsCheck, score)
+      } else {
+        console.warn('check:', key, jsCheck)
       }
-      return _.find(scores, o => {
-        var value = o.value.replace('–', '-')
-        // range 范围
-        // < ≤ -< | > ≥ >- | -
-        const symbol = {
-          gt: '>',
-          gte: '>=',
-          lt: '<',
-          lte: '<=',
-          eq: '=',
-          range: '-'
-        }
-        const rangeRegExp = /(\d+\.?\d{0,3})?(<|>|≤|≥)?(-)?(<|>|≤|≥)?(\d+\.?\d{0,3})/
-        var matchs = value.match(rangeRegExp)
-        if (!matchs) {
-          console.info(value, matchs)
-        }
-        var range = {
-          check: function () {
-            var c = []
-            // sn start number
-            // en end number
-            // sw start way
-            // ew end way
-            if (this.sn && this.sw) {
-              c.push('value')
-              c.push(this.sw)
-              c.push(this.sn)
-              if (this.en && this.ew) {
-                c.push('&&')
-                c.push('value')
-                c.push(this.ew)
-                c.push(this.en)
-              }
-            } else if (this.en && this.ew) {
-              c.push('value')
-              c.push(this.ew)
-              c.push(this.en)
-            } else if (this.en && this.sw) {
-              c.push('value')
-              c.push(this.sw)
-              c.push(this.en)
-            }
-            return c.join(' ').replace('≥', symbol.gte).replace('≤', symbol.lte)
-          }
-        }
-        if (matchs[1]) {
-          range['sn'] = matchs[1]
-        }
-        if (matchs[5]) {
-          range['en'] = matchs[5]
-        }
-        if (matchs[3] && (matchs[3] === symbol.range || matchs[3] === symbol.eq)) {
-          range['r'] = true
-          if (matchs[2] && matchs[2] === symbol.gt) {
-            range['sw'] = symbol.gt
-          } else {
-            range['sw'] = symbol.gte
-          }
-          if (matchs[4] && matchs[4] === symbol.lt) {
-            range['ew'] = symbol.lt
-          } else {
-            range['ew'] = symbol.lte
-          }
-        } else {
-          if (matchs[2]) {
-            range['sw'] = matchs[2]
-          }
-          if (matchs[4]) {
-            range['ew'] = matchs[4]
-          }
-        }
-        var jsValue = o['js_value'] = range.check()
-        jsValue = _.replace(jsValue, new RegExp('value', 'g'), val)
-        // TODO other and model eq
-        console.log(range, jsValue)
-        return eval(jsValue)
-      })
+      return score
     },
     calcFormulas: function () {
       _.each(this.ss.formulas, this.calcFormula)
@@ -191,10 +146,20 @@ export default {
     calcFormula: function (formula) {
       var vm = this
       const key = formula.key
+      const calcKeys = _.keys(this.model)
       var jsFormula = formula.js_formulas
-      _.each(this.model, function (val, key) {
-        // 转换计算单位
-        if (_.has(vm.unit, key)) {
+      if (jsFormula === '+') { // all count
+        jsFormula = calcKeys.join(' + ')
+      }
+      // replace key->value
+      _.each(calcKeys, function (key) {
+        // 分值转换
+        var val = vm.model[key]
+        if (_.has(vm.score, key)) {
+          val = vm.score[key]
+        }
+        // 换算单位
+        if (_.has(vm.unit, key) && _.has(formula, 'calc_unit') && _.has(formula.calc_unit, key)) {
           var vUnit = vm.unit[key].unit
           var cUnit = formula.calc_unit[key]
           if (vUnit !== cUnit) {
@@ -203,18 +168,23 @@ export default {
         }
         jsFormula = _.replace(jsFormula, new RegExp(key, 'g'), val)
       })
-      console.info(key, jsFormula)
+
+      console.debug(key, jsFormula)
       var value = eval(jsFormula)
+      var ret
       value = Math.floor(value * 100) / 100 // 保留两位小数点
       if (formula.scores) {
-        var ret = this.chooseScore(value, key, formula.scores)
-        if (ret) {
-          this.result[key] = _.assign({ret: value}, _.pick(formula, ['key', 'name', 'unit']), ret)
-        } else {
-          this.result[key] = _.assign({ret: value}, _.pick(formula, ['key', 'name', 'unit']), ret)
-        }
-      } else {
+        ret = this.chooseScore(value, key, formula.scores)
+      }
+      if (_.isArray(ret)) {
         this.result[key] = _.assign({ret: value}, _.pick(formula, ['key', 'name', 'unit']))
+        var rs = []
+        _.each(ret, r => {
+          rs.push(_.pick(r, ['type', 'type_name', 'score', 'result']))
+        })
+        this.result[key]['result'] = rs
+      } else {
+        this.result[key] = _.assign({ret: value}, _.pick(formula, ['key', 'name', 'unit']), ret)
       }
     },
     getSs: function (ssKey) {
