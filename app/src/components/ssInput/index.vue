@@ -5,12 +5,14 @@
     </div>
     <div v-else>
       <input v-bind="$attrs" v-bind:value="value" type="text" v-on="inputListeners">
-      <button v-if="ss.unit">{{ss.unit}}</button>
+      <button v-bind:value="unit.unit" v-bind:unit="unit.unit" v-if="unit.unit" v-on="unitListeners">{{unit.unit}}</button>
     </div>
   </div>
 </template>
 
 <script>
+import _ from 'lodash'
+import { unitConvert } from '@/utils/convert'
 export default {
   name: 'SsInput',
   model: {
@@ -21,6 +23,18 @@ export default {
     value: {
       type: String,
       default: ''
+    },
+    convert: {
+      type: Object,
+      default: function () {
+        return {}
+      }
+    },
+    unit: {
+      type: Object,
+      default: function () {
+        return {}
+      }
     },
     ss: {
       type: Object,
@@ -50,11 +64,27 @@ export default {
           vm.$emit('input', event.target.value)
         }
       })
+    },
+    unitListeners: function () {
+      var vm = this
+      return Object.assign({}, this.$listeners, {
+        click: function (event) {
+          var unit = event.target.value
+          var unitSize = vm.unit.units.length
+          var index = _.indexOf(vm.unit.units, unit)
+          var nextIndex = index + 1
+          if (nextIndex >= unitSize) {
+            nextIndex = 0
+          }
+          var nextUnit = vm.unit.units[nextIndex]
+          var newValue = unitConvert(unit + '-' + nextUnit, vm.value, vm.convert)
+          if (newValue !== undefined) {
+            vm.unit['unit'] = nextUnit
+            vm.$emit('input', '' + newValue)
+          }
+        }
+      })
     }
-  },
-  mounted: function () {
-  },
-  methods: {
   }
 }
 </script>
