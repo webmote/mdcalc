@@ -1,5 +1,5 @@
 --
--- File generated with SQLiteStudio v3.2.1 on 周四 4月 4 14:33:47 2019
+-- File generated with SQLiteStudio v3.2.1 on 周四 4月 4 19:14:48 2019
 --
 -- Text encoding used: System
 --
@@ -12,7 +12,7 @@ INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark,
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('height', '身高', 'item', NULL, 'cm', 'cm,m', NULL, '身高', NULL, 'sys', NULL, 'sys', NULL);
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('weight', '体重', 'item', NULL, 'kg', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('bmi', 'bmi', 'item', NULL, 'kg/m^2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('bsa', 'BSA', 'item', NULL, 'm^2', NULL, NULL, NULL, 'Body SurFace Area', NULL, NULL, NULL, NULL);
+INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('bsa', 'BSA', 'item', NULL, 'm^2', NULL, '体表面积', NULL, 'Body SurFace Area', NULL, NULL, NULL, NULL);
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('age', '年龄', 'item', NULL, 'years', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('ss_apacheii', 'APACHE II Score', 'ss', NULL, 'points', NULL, 'APACHE-II评分提供了一个基于多个实验室值和患者体征的ICU死亡率估计，同时考虑了急性和慢性疾病。注:所使用的数据应来自ICU的最初24小时，且应使用最差值(较基线/正常值更远)', NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('severe_organ_failure_or_immunocompromise', '严重器官衰竭或免疫功能损害史', 'item', NULL, NULL, NULL, NULL, '心力衰竭IV类，肝硬化，慢性肺病，或透析依赖', NULL, NULL, NULL, NULL, NULL);
@@ -20,7 +20,7 @@ INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark,
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('yes', 'Yes', 'option', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('type_of_surgery', '手术方式', 'item', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('emergency_postoperative', '急诊手术', 'option', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('elective_postoperative ', '择期手术', 'option', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('elective_postoperative', '择期手术', 'option', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('nonoperative', '非手术', 'option', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('temperature', '体温', 'item', NULL, '°C', NULL, NULL, '', NULL, NULL, NULL, NULL, NULL);
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('mean_arterial_pressure', '平均动脉压', 'item', NULL, 'mm Hg', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
@@ -52,20 +52,20 @@ INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark,
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('eye_response', '眼部反应', 'item', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('verbal_response', '语言反应', 'item', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('motor_response', '运动反应', 'item', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('to_verbal_command ', '声音刺激后睁眼', 'option', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('to_verbal_command', '声音刺激后睁眼', 'option', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('spontaneously', '可自动睁眼', 'option', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('not_assessable ', '不可评估的', 'option', NULL, NULL, NULL, '不可评估(外伤、水肿等)', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('not_assessable', '不可评估的', 'option', NULL, NULL, NULL, '不可评估(外伤、水肿等)', NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('no_eye_opening', '无反应', 'option', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('to_pain', '疼痛刺激后睁眼', 'option', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('oriented', '回答正确', 'option', NULL, NULL, NULL, '导向的', NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('confused', '回答错误，迷糊', 'option', NULL, NULL, NULL, '迷糊的', NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('incomprehensible_sounds', '只能发音', 'option', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('inappropriate_words', '语句不清', 'option', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('no_verbal_response ', '没有言语反应', 'option', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('no_verbal_response', '没有言语反应', 'option', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('intubated', '少儿', 'option', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('extension_to_pain', '刺痛时肢体过伸', 'option', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('flexion _to_pain ', '刺痛时肢体屈曲', 'option', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('withdrawal_from_pain ', '刺痛躲避', 'option', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('flexion_to_pain', '刺痛时肢体屈曲', 'option', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('withdrawal_from_pain', '刺痛躲避', 'option', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('localizes_pain', '指出疼痛部位', 'option', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('obeys_commands', '服从命令', 'option', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO keys ("key", name, type, norm, unit, units, note, "explain", remark, creator, create_date, updator, update_date) VALUES ('no_motor_response', '没有肢体反应', 'option', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
@@ -105,7 +105,7 @@ INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, cr
 INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('yes', 'severe_organ_failure_or_immunocompromise', 'ss_apacheii', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('severe_organ_failure_or_immunocompromise', NULL, 'ss_apacheii', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('emergency_postoperative', 'type_of_surgery', 'ss_apacheii', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('elective_postoperative ', 'type_of_surgery', 'ss_apacheii', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('elective_postoperative', 'type_of_surgery', 'ss_apacheii', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('nonoperative', 'type_of_surgery', 'ss_apacheii', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('rectal_temperature', NULL, 'ss_apacheii', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('mean_arterial_pressure', NULL, 'ss_apacheii', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
@@ -139,18 +139,18 @@ INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, cr
 INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('eye_response', NULL, 'glasgow_coma_scale', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('no_motor_response', 'motor_response', 'glasgow_coma_scale', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('extension_to_pain', 'motor_response', 'glasgow_coma_scale', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('flexion _to_pain ', 'motor_response', 'glasgow_coma_scale', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('withdrawal_from_pain ', 'motor_response', 'glasgow_coma_scale', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('flexion_to_pain', 'motor_response', 'glasgow_coma_scale', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('withdrawal_from_pain', 'motor_response', 'glasgow_coma_scale', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('localizes_pain', 'motor_response', 'glasgow_coma_scale', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('obeys_commands', 'motor_response', 'glasgow_coma_scale', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('intubated', 'verbal_response', 'glasgow_coma_scale', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('no_verbal_response ', 'verbal_response', 'glasgow_coma_scale', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('no_verbal_response', 'verbal_response', 'glasgow_coma_scale', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('inappropriate_words', 'verbal_response', 'glasgow_coma_scale', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('incomprehensible_sounds', 'verbal_response', 'glasgow_coma_scale', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('confused', 'verbal_response', 'glasgow_coma_scale', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('oriented', 'verbal_response', 'glasgow_coma_scale', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('to_pain', 'eye_response', 'glasgow_coma_scale', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('to_verbal_command ', 'eye_response', 'glasgow_coma_scale', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('to_verbal_command', 'eye_response', 'glasgow_coma_scale', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('spontaneously', 'eye_response', 'glasgow_coma_scale', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('age', NULL, 'a-a_o2_gradient', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_items ("key", p_key, ss_key, "when", when_eq, remark, creator, create_date, update_date, updator) VALUES ('fio2', NULL, 'a-a_o2_gradient', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
@@ -171,9 +171,9 @@ INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "expla
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('bmi', 'bmi_bsa', '30.0-34.9', NULL, NULL, '肥胖-一级', NULL, NULL, 'sys', '2019-04-01 03:33:54', 'sys', '2019-04-01 03:33:54');
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('bmi', 'bmi_bsa', '35.0-39.9', NULL, NULL, '肥胖-二级', NULL, NULL, 'sys', '2019-04-01 03:34:21', 'sys', '2019-04-01 03:34:21');
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('bmi', 'bmi_bsa', '≥40.0', NULL, NULL, '肥胖-三级', NULL, NULL, 'sys', '2019-04-01 03:35:15', 'sys', '2019-04-01 03:35:15');
-INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('severe_organ_failure_or_immunocompromise', 'ss_apacheii', 'yes', '', NULL, NULL, '需要子项目', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('severe_organ_failure_or_immunocompromise', 'ss_apacheii', 'yes', '0', NULL, NULL, '需要子项目', NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('severe_organ_failure_or_immunocompromise', 'ss_apacheii', 'no', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('type_of_surgery', 'ss_apacheii', 'elective_postoperative ', '2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('type_of_surgery', 'ss_apacheii', 'elective_postoperative', '2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('type_of_surgery', 'ss_apacheii', 'emergency_postoperative|nonoperative', '5', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('rectal_temperature', 'ss_apacheii', '≥41', '4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('rectal_temperature', 'ss_apacheii', '39-<41', '3', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
@@ -288,6 +288,7 @@ INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "expla
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('motor_response', 'glasgow_coma_scale', 'localizes_pain', '5', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('motor_response', 'glasgow_coma_scale', 'obeys_commands', '6', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('fio2', 'ss_apacheii', 'gte50percentum|lt50percentum_or_non-intubated', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO ss_scores ("key", ss_key, value, score, type, result, remark, "explain", creator, create_date, updator, update_date) VALUES ('acute_renal_failure', 'ss_apacheii', 'yes|no', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- Index: key
 CREATE INDEX "key" ON ss_formulas ("key", ss_key);
@@ -303,7 +304,7 @@ from ss_items s
 left join keys k on s.key=k.key;
 
 -- View: v_scores
-CREATE VIEW v_scores AS select s.value,s.score,s.type,k.name as type_name,s.result 
+CREATE VIEW v_scores AS select s.key,s.ss_key,s.value,s.score,s.type,k.name as type_name,s.result 
 from ss_scores s 
 left join keys k on s.type=k.key;
 
