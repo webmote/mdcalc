@@ -1,11 +1,11 @@
 <template>
   <div class="ssInput">
     <div v-if="ss.options&&ss.options.length>0">
-      <button v-bind:value="o.key" v-bind:class="{active: value == o.key}" v-for="o in ss.options" v-bind:key="o.key" v-on="optionListeners">{{o.name}}</button>
+      <button tabindex="-1" v-bind:value="o.key" v-bind:class="{active: value == o.key}" v-for="o in ss.options" v-bind:key="o.key" v-on="optionListeners">{{o.name}}</button>
     </div>
     <div v-else>
-      <input v-bind="$attrs" v-bind:value="value" type="text" v-on="inputListeners">
-      <button v-bind:value="unit.unit" v-bind:unit="unit.unit" v-if="unit.unit" v-on="unitListeners">{{unit.unit}}</button>
+      <input v-bind="$attrs" v-bind:tabindex="index" v-bind:value="value" type="text" v-on="inputListeners">
+      <button tabindex="-1" v-bind:value="unit.unit" v-bind:unit="unit.unit" v-if="unit.unit" v-on="unitListeners">{{ unit.units && unit.units.length>0 ? '⇌&nbsp;'+unit.unit:unit.unit}}</button>
     </div>
   </div>
 </template>
@@ -20,6 +20,7 @@ export default {
     event: 'input'
   },
   props: {
+    index: { Number },
     value: {
       type: String,
       default: ''

@@ -3,13 +3,13 @@
     <h1>{{ss.name}}</h1>
     <p v-show="ss.note">{{ss.note}}</p>
     <div class="items">
-      <section v-show="!i.when||(i.when&&model[i.when]===i.when_eq)" v-for="i in ss.items" :key="i.key">
+      <section v-show="!i.when||(i.when&&model[i.when]===i.when_eq)" v-for="(i, index) in ss.items" :key="i.key">
         <div class="row">
           <div class="label">
             <label>{{i.name}}</label><span class="score" v-show="score[i.key]>0||score[i.key]<0">{{score[i.key]}}</span>
           </div>
           <div class="input">
-            <ss-input v-model="model[i.key]" :convert="ss.unit_convert" :unit="unit[i.key]" :ss="i"></ss-input>
+            <ss-input v-model="model[i.key]" :index="index + 1" :convert="ss.unit_convert" :unit="unit[i.key]" :ss="i"></ss-input>
           </div>
         </div>
       </section>
