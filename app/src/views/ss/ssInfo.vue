@@ -5,10 +5,10 @@
     <div class="items">
       <section v-show="!i.when||(i.when&&model[i.when]===i.when_eq)" v-for="(i, index) in ss.items" :key="i.key">
         <div class="row">
-          <div class="label">
+          <div class="label-wrap">
             <label>{{i.name}}</label><span class="score" v-show="score[i.key]>0||score[i.key]<0">{{score[i.key]}}</span>
           </div>
-          <div class="input">
+          <div class="input-wrap">
             <ss-input v-model="model[i.key]" :index="index + 1" :convert="ss.unit_convert" :unit="unit[i.key]" :ss="i"></ss-input>
           </div>
         </div>
@@ -284,21 +284,22 @@ export default {
   content: "";
   display: block;
 }
-.row .label {
+.row .label-wrap {
   min-width: 16em;
   text-align: left;
   display: inline-block;
 }
-.row .input {
+.row .input-wrap {
   top: 0;
   float: right;
   text-align: right;
   margin-left: 17em;
+  display: flex;
 }
-.row .input button {
+.row .input-wrap button {
   display: inline-block;
 }
-.label .score {
+.label-wrap .score {
   float: right;
   color: brown;
 }

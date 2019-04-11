@@ -1,9 +1,9 @@
 <template>
-  <div class="ssInput">
-    <div v-if="ss.options&&ss.options.length>0">
+  <div>
+    <div class="input-options" v-if="ss.options&&ss.options.length>0">
       <button tabindex="-1" v-bind:value="o.key" v-bind:class="{active: value == o.key}" v-for="o in ss.options" v-bind:key="o.key" v-on="optionListeners">{{o.name}}</button>
     </div>
-    <div v-else>
+    <div class="input" v-else>
       <input v-bind="$attrs" v-bind:tabindex="index" v-bind:value="value" type="text" v-on="inputListeners">
       <button tabindex="-1" v-bind:value="unit.unit" v-bind:unit="unit.unit" v-if="unit.unit" v-on="unitListeners">{{ unit.units && unit.units.length>0 ? '⇌&nbsp;'+unit.unit:unit.unit}}</button>
     </div>
@@ -99,5 +99,20 @@ export default {
   background-color: #2c3e50;
   color: #fff;
 
+}
+.input, .input-options {
+  min-width: 20em;
+  display: flex;
+}
+.input input {
+  /* width: 20em; */
+  flex: 1 1 auto;
+}
+.input button {
+  /* width: 10em; */
+  flex: 0 0 auto;
+}
+.input-options button {
+  flex-grow: 1;
 }
 </style>
