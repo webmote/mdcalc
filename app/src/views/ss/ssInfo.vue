@@ -23,7 +23,7 @@
                 <strong class="score_num" :title="k" v-show="f.ret">{{f.ret}}</strong><label class="score_label" v-show="f.ret">{{f.name}}</label>
               </div>
               <div>
-                <span v-show="f.ret">{{f.result || f.note}}</span>
+                <span v-show="f.ret && typeof(f.result) == 'string' ">{{f.result || f.note}}</span>
               </div>
               <div v-show="!f.ret">
                 <strong class="score_num">Results:</strong>
@@ -32,7 +32,7 @@
                 <label>&nbsp;</label>
               </div>
             </div>
-            <div class="type" v-if="f.result && f.result.length !== undefined && f.result.length > 0">
+            <div class="type" v-if="typeof(f.result) == 'object'">
               <div v-for="r in f.result" :key="r.type">
                 <label>{{r.type_name}}</label>
                 <strong>{{r.score}}</strong>
@@ -237,7 +237,9 @@ export default {
           var model = {}
           var unit = {}
           this.ss.items.map(i => {
-            model[i.key] = null
+            if (!_.has(i, 'when_eq')) {
+              model[i.key] = null
+            }
             unit[i.key] = _.pick(i, ['unit', 'units'])
           })
           this.model = model
@@ -311,6 +313,16 @@ export default {
   background-color: #2c3e50;
   color: #fff;
   height: 6em;
+  border-right: 1px solid #45566A;
+  border-left: 1px solid #45566A;
+  margin-left: -1px;
+  margin-right: -1px;
+}
+.results .box:last-child {
+  border-right: none;
+}
+.results .box:first {
+  border-left: none;
 }
 .results .box > div {
   padding: 1em;
@@ -335,5 +347,9 @@ export default {
   margin-left: .5em;
   font-size: .8em;
   color: #ccc;
+}
+.type div {
+  display: inline-block;
+  min-width: 10em;
 }
 </style>
