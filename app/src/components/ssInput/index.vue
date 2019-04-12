@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="input-options" v-if="ss.options&&ss.options.length>0">
+    <div class="input-options" v-bind:class="{wrap: ss.options&&ss.options.length>3}" v-if="ss.options&&ss.options.length>0">
       <button tabindex="-1" v-bind:value="o.key" v-bind:class="{active: value == o.key}" v-for="o in ss.options" v-bind:key="o.key" v-on="optionListeners">{{o.name}}</button>
     </div>
     <div class="input" v-else>
@@ -94,28 +94,54 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.active {
-  border-color: #2c3e50;
-  background-color: #2c3e50;
-  color: #fff;
-
-}
 .input, .input-options {
   min-width: 20em;
   display: flex;
 }
+.input {
+  border: 1px solid #1BB193;
+}
 .input input {
   /* width: 20em; */
   flex: 1 1 auto;
+  border: none;
+  padding: .2em;
+  height: 1.5em;
 }
 .input button {
-  /* width: 10em; */
   flex: 0 0 auto;
+  border: none;
+  background-color: #1BB193;
+  color: white;
 }
 .input-options {
   flex-wrap: wrap;
 }
 .input-options button {
   flex-grow: 1;
+  line-height: 2em;
+  border: solid 1px #ccc;
+  background-color: #f0f0f0;
+  color: #323232;
+  margin-right: -1px;
+}
+.input-options button:last-child {
+  margin-right: 0;
+}
+.input-options button.active {
+  border: 1px solid #1BB193;
+  background-color: #1BB193;
+  color: white;
+}
+.wrap {
+  flex-direction: column;
+}
+.wrap button {
+  margin-bottom: -1px;
+  margin-right: 0;
+  text-align: left;
+}
+.wrap button:last-child {
+  margin-bottom: 0;
 }
 </style>

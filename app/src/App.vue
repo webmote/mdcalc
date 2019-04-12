@@ -15,6 +15,9 @@
     </section>
     <div class="search-results-wrap" v-show="isShowSearch"></div>
     <router-view v-show="!isShowSearch"/>
+    <section>
+      <footer></footer>
+    </section>
   </div>
 </template>
 
@@ -63,6 +66,11 @@ export default {
   color: #2c3e50;
   /* margin-top: 60px; */
 }
+footer {
+  margin-top: 2em;
+  border-top: 1px solid #f0f0f0;
+  height: 7em;
+}
 nav {
   height: 5em;
   border-top: solid .2em #1BB193;
@@ -70,7 +78,8 @@ nav {
   display: flex;
 }
 .brand {
-  flex: 1 1 20%
+  flex: 1 1 20%;
+  margin-left: 2em;
 }
 .search-wrap {
   display: inline-block;
@@ -108,5 +117,6 @@ nav {
 }
 .menus-wrap {
   flex: 1 1 20%;
+  margin-right: 2em;
 }
 </style>

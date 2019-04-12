@@ -1,47 +1,50 @@
 <template>
-  <div class="ss">
-    <h1>{{ss.name}}</h1>
-    <p v-show="ss.note">{{ss.note}}</p>
-    <div class="items">
-      <section v-show="!i.when||(i.when&&model[i.when]===i.when_eq)" v-for="(i, index) in ss.items" :key="i.key">
-        <div class="row">
-          <div class="label-wrap">
-            <label>{{i.name}}</label><span class="score" v-show="score[i.key]>0||score[i.key]<0">{{score[i.key]}}</span>
-          </div>
-          <div class="input-wrap">
-            <ss-input v-model="model[i.key]" :index="index + 1" :convert="ss.unit_convert" :unit="unit[i.key]" :ss="i"></ss-input>
-          </div>
-        </div>
-      </section>
-    </div>
-    <div class="results">
-      <section v-bind:class="resultClassObject">
-        <div class="box" v-for="(f, k) in result" :key="k">
-          <div>
-            <div class="result">
-              <div>
-                <strong class="score_num" :title="k" v-show="f.ret">{{f.ret}}</strong><label class="score_label" v-show="f.ret">{{f.name}}</label>
-              </div>
-              <div>
-                <span v-show="f.ret && typeof(f.result) == 'string' ">{{f.result || f.note}}</span>
-              </div>
-              <div v-show="!f.ret">
-                <strong class="score_num">Results:</strong>
-              </div>
-              <div v-show="!f.ret">
-                <label>&nbsp;</label>
-              </div>
+  <div class="ss-info">
+    <div class="ss">
+      <h1>{{ss.name}}</h1>
+      <p v-show="ss.note">{{ss.note}}</p>
+      <div class="items">
+        <section v-show="!i.when||(i.when&&model[i.when]===i.when_eq)" v-for="(i, index) in ss.items" :key="i.key">
+          <div class="row">
+            <div class="label-wrap">
+              <label>{{i.name}}</label><span class="score" v-show="score[i.key]>0||score[i.key]<0">{{score[i.key]}}</span>
             </div>
-            <div class="type" v-if="typeof(f.result) == 'object'">
-              <div v-for="r in f.result" :key="r.type">
-                <label>{{r.type_name}}</label>
-                <strong>{{r.score}}</strong>
-              </div>
+            <div class="input-wrap">
+              <ss-input v-model="model[i.key]" :index="index + 1" :convert="ss.unit_convert" :unit="unit[i.key]" :ss="i"></ss-input>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
+      <div class="results">
+        <section v-bind:class="resultClassObject">
+          <div class="box" v-for="(f, k) in result" :key="k">
+            <div>
+              <div class="result">
+                <div>
+                  <strong class="score_num" :title="k" v-show="f.ret">{{f.ret}}</strong><label class="score_label" v-show="f.ret">{{f.name}}</label>
+                </div>
+                <div>
+                  <span v-show="f.ret && typeof(f.result) == 'string' ">{{f.result || f.note}}</span>
+                </div>
+                <div v-show="!f.ret">
+                  <strong class="score_num">Results:</strong>
+                </div>
+                <div v-show="!f.ret">
+                  <label>&nbsp;</label>
+                </div>
+              </div>
+              <div class="type" v-if="typeof(f.result) == 'object'">
+                <div v-for="r in f.result" :key="r.type">
+                  <label>{{r.type_name}}</label>
+                  <strong>{{r.score}}</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
+    <div class="info"></div>
   </div>
 </template>
 
@@ -257,8 +260,16 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.ss-info {
+  margin-left: 2em;
+  margin-right: 2em;
+  display: flex;
+}
 .ss {
-  max-width: 45em;
+  flex: 1 1 60%;
+}
+.info {
+  flex: 1 1 40%;
 }
 .items {
   margin-bottom: 2em;
@@ -270,11 +281,16 @@ export default {
 .items section:last-child {
   border-bottom: 1px solid #f0f0f0;
 }
+.items section:nth-of-type(odd) {
+  background-color: #f0f0f0;
+  background-color: white;
+}
 .row {
   padding: .5em;
   position: relative;
   text-align: left;
   display: flex;
+  line-height: 2em;
 }
 .row .label-wrap {
   flex: 1 1 50%;
