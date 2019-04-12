@@ -38,7 +38,6 @@
                 <strong>{{r.score}}</strong>
               </div>
             </div>
-            <div v-else><span v-show="f.result">{{f.result}}</span></div>
           </div>
         </div>
       </section>
@@ -258,6 +257,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.ss {
+  max-width: 45em;
+}
 .items {
   margin-bottom: 2em;
   margin-top: 2em;
@@ -269,42 +271,26 @@ export default {
   border-bottom: 1px solid #f0f0f0;
 }
 .row {
-  display: block;
   padding: .5em;
   position: relative;
   text-align: left;
-}
-.row::after {
-  clear: both;
-  content: "";
-  display: block;
-}
-.row::before {
-  clear: both;
-  content: "";
-  display: block;
+  display: flex;
 }
 .row .label-wrap {
-  min-width: 16em;
-  text-align: left;
-  display: inline-block;
+  flex: 1 1 50%;
 }
 .row .input-wrap {
-  top: 0;
-  float: right;
-  text-align: right;
-  margin-left: 17em;
-  display: flex;
+  flex: 1 1 50%;
 }
 .row .input-wrap button {
   display: inline-block;
 }
 .label-wrap .score {
-  float: right;
   color: brown;
+  display: none;
 }
 .results section {
-  position: relative;
+  display: flex;
 }
 .results .box {
   position: relative;

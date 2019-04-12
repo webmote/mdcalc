@@ -112,6 +112,9 @@ export default {
   /* width: 10em; */
   flex: 0 0 auto;
 }
+.input-options {
+  flex-wrap: wrap;
+}
 .input-options button {
   flex-grow: 1;
 }
