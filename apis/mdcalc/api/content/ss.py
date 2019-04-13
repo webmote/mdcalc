@@ -10,7 +10,10 @@ ss = Blueprint('content_ss', url_prefix='/ss')
 
 @ss.route('/', methods=['GET', 'OPTIONS'])
 async def ss_list(request):
-    return json(model.list())
+    kw = ""
+    if "kw" in request.raw_args:
+        kw = request.raw_args['kw']
+    return json(model.list(kw))
 
 @ss.route('/unit', methods=['GET', 'OPTIONS'])
 async def ss_unit(request):

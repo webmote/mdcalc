@@ -3,9 +3,12 @@ from .base import BaseModel
 from mdcalc.utils import del_none
 
 class SsModel(BaseModel):
-    def list(self):
+    def list(self, kw):
+        sql = "SELECT * FROM v_ss"
+        if kw:
+            sql = sql + " where `name` like :kw or `key` like :kw or keyword like :kw"
         c = self.db.cursor()
-        c.execute("SELECT * FROM v_ss")
+        c.execute(sql, {'kw': '%'+kw+'%'})
         ret = list(c.fetchall())
         c.close()
         return del_none(ret)

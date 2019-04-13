@@ -17,6 +17,10 @@ export default new Router({
       name: 'ss_list',
       component: ssList
     },
-    { path: '/s/:ssKey', name: 'ss_info', component: ssInfo }
+    {
+      path: '/s/:ssKey',
+      name: 'ss_info',
+      component: ssInfo
+    }
   ]
 })

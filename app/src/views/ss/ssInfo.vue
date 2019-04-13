@@ -69,6 +69,7 @@ export default {
     }
   },
   watch: {
+    '$route': 'fatchData',
     model: {
       handler: function (val, oldVal) {
         // TODO change key $emit 延后执行
@@ -88,9 +89,12 @@ export default {
     }
   },
   mounted: function () {
-    this.getSs(this.$route.params.ssKey)
+    this.fatchData()
   },
   methods: {
+    fatchData: function () {
+      this.getSs(this.$route.params.ssKey)
+    },
     emitScore: function () {
       _.each(this.model, this.calcScore)
       var values = _.values(this.model)

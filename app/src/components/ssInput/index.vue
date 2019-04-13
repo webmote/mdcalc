@@ -76,8 +76,7 @@ export default {
           var unit = event.target.value
           if (event.target.nodeName === 'svg') {
             unit = event.target.parentNode.value
-          }
-          else if (event.target.nodeName === 'path') {
+          } else if (event.target.nodeName === 'path') {
             unit = event.target.parentNode.parentNode.value
           }
           if (vm.unit.units && vm.unit.units.length > 1) {

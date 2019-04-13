@@ -13,8 +13,19 @@
         <div class="menus-wrap"></div>
       </nav>
     </section>
-    <div class="search-results-wrap" v-show="isShowSearch"></div>
-    <router-view v-show="!isShowSearch"/>
+    <div class="search-results-wrap" v-show="isShowSearch">
+      <div class="results">
+        <section :key="s.key" v-for="s in ss">
+          <h3><router-link v-on:click.native="closeSearch" :to="{ name: 'ss_info', params: { ssKey: s.key }}">{{s.name}}</router-link></h3>
+        </section>
+      </div>
+      <div class="type">
+        <button>Hot</button>
+      </div>
+    </div>
+    <transition name="fade">
+      <router-view v-show="!isShowSearch"/>
+    </transition>
     <section>
       <footer></footer>
     </section>
@@ -22,13 +33,15 @@
 </template>
 
 <script>
+import { getSs } from '@/apis'
 import 'normalize.css'
 export default {
   name: 'App',
   data () {
     return {
       isShowSearch: false,
-      keyword: null
+      keyword: null,
+      ss: []
     }
   },
   computed: {
@@ -45,13 +58,19 @@ export default {
       })
     }
   },
+  mounted: function () {
+
+  },
   methods: {
     closeSearch: function (event) {
       this.isShowSearch = false
       this.keyword = null
+      this.ss = []
     },
-    search: function (keyword) {
-      console.log(keyword)
+    search: function (kw) {
+      getSs(kw).then(res => {
+        this.ss = res.data
+      })
     }
   }
 }
@@ -118,5 +137,31 @@ nav {
 .menus-wrap {
   flex: 1 1 20%;
   margin-right: 2em;
+}
+.search-results-wrap {
+  display: flex;
+  min-height: 25em;
+}
+.search-results-wrap .results {
+  flex: 1 1 60%;
+  margin-left: 2em;
+}
+h3 a {
+  text-decoration: none;
+  color:#1BB193;
+}
+h3 a:hover {
+  color:#2c3e50;
+}
+.search-results-wrap .type {
+  flex: 1 1 40%;
+  margin-right: 2em;
+  margin-left: 1em;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>

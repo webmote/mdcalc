@@ -9,16 +9,16 @@ export function getInfoSs (ssKey) {
   })
 }
 
-export function getHotSs () {
+export function getHotSs (kw) {
   return request({
-    url: '/content/ss',
+    url: '/content/ss?kw=' + (kw || ''),
     method: 'GET'
   })
 }
 
-export function getSs () {
+export function getSs (kw) {
   return request({
-    url: '/content/ss',
+    url: '/content/ss?kw=' + (kw || ''),
     method: 'GET'
   })
 }
